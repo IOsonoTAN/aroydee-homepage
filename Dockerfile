@@ -8,6 +8,6 @@ ADD package.json package-lock.json ./
 
 RUN npm install --global bower
 
-RUN bower install
+RUN bower install --allow-root
 
 CMD [ "npm", "start" ]
