@@ -1,0 +1,24 @@
+{
+  "name": "aroydee-homepage",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Krissada Boontrigratn <krissada@appsynth.net>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "components-font-awesome": "^5.0.6",
+    "bootstrap": "^4.1.1",
+    "lightbox2": "^2.10.0",
+    "jssocials": "^1.5.0"
+  }
+}

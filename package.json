@@ -1,0 +1,23 @@
+{
+  "name": "aroydee-homepage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bower": "^1.8.4",
+    "dotenv": "^5.0.1",
+    "koa": "^2.5.1",
+    "koa-combine-routers": "^3.0.1",
+    "koa-ejs": "^4.1.1",
+    "koa-morgan": "^1.0.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2"
+  }
+}

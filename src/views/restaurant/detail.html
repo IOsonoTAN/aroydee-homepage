@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= restaurant.title.th %> - Aroydee Channel</title>
+  <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/components/components-font-awesome/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="/components/lightbox2/dist/css/lightbox.min.css">
+
+  <style>
+    body {
+      margin: 40px 0;
+      color: #555
+    }
+    img#logo {
+      max-height: 160px;
+      margin-bottom: 20px;
+    }
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+    .telephones {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .img-gallery {
+      max-width: 70px;
+    }
+    tr:hover {
+      background: #EFEFEF;
+    }
+
+    @media screen and (max-width: 768px) {
+      #map {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <% if (restaurant.pictures && restaurant.pictures.logo && restaurant.pictures.logo.url) { %>
+          <img id="logo" class="img-thumbnail img-fluid" src=<%= restaurant.pictures.logo.url %> alt="logo-<%= restaurant.pictures.logo.publicId %>">
+        <% } %>
+      </div>
+      <div class="col-9">
+        <h1 class="title">
+          <%= restaurant.title.th %>
+        </h1>
+        <% if (restaurant.description && restaurant.description) { %>
+          <div class="col-xs-12">
+            <p class="subtitle">
+              <%= restaurant.description.th %>
+            </p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="gallery mt-2">
+        <% for (let g=0; g<restaurant.gallery.length; g++) { %>
+          <a href="<%= restaurant.gallery[g].url %>" data-lightbox="menu-<%= restaurant._id %>" data-title="<%= restaurant.title %>" target="_blank">
+            <img class="img-gallery img-thumbnail img-fluid" src="<%= restaurant.gallery[g].url %>" alt="logo-<%= restaurant.gallery[g].publicId %>">
+          </a>
+        <% } %>
+      </div>
+    </div>
+    <hr>
+    <div class="card-deck text-center">
+      <div class="card text-white bg-info box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">เวลาเปิดและปิด</h4>
+        </div>
+        <div class="card-body">
+          <%= restaurant.businessHours %>
+        </div>
+      </div>
+      <div class="card text-white bg-info box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">โทรศัพท์</h4>
+        </div>
+        <div class="card-body">
+          <ul class="telephones">
+            <% for (let i=0; i<restaurant.telephone.length; i++) { %>
+              <li><i class="fas fa-phone-square"></i> <%= restaurant.telephone[i] %></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+      <div class="card text-white bg-info box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">คะแนนร้าน</h4>
+        </div>
+        <div class="card-body">
+          <span class="rating">
+            <% if (restaurant.rating === 0) { %>
+              ยังไม่มีคะแนน
+            <% } else { %>
+              <% for (let i=0; i<restaurant.rating; i++) { %>
+                <i class="fas fa-star"></i>
+              <% } %>
+            <% } %>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="menus mt-4">
+      <h3>รายการอาหาร</h3>
+      <% if (restaurant.menus === 0) { %>
+        ยังไม่มีรายการอาหาร
+      <% } else { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ชื่อรายการ</th>
+              <th>ราคา</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let i=0; i<restaurant.menus.length; i++) {
+              const { title, price, gallery, _id, recommended, rating } = restaurant.menus[i]
+            %>
+              <tr>
+                <td>
+                  <% if (recommended) { %>
+                    <i class="far fa-thumbs-up"></i>
+                  <% } %>
+                  <%= title %>
+                  <% for (let mt=0; mt<rating; mt++) { %>
+                    <small><i class="fas fa-star"></i></small>
+                  <% } %>
+                  <div class="gallery mt-2">
+                    <% for (let g=0; g<gallery.length; g++) { %>
+                    <a href="<%= gallery[g].url %>" data-lightbox="menu-<%= _id %>" data-title="<%= title %>" target="_blank">
+                      <img class="img-gallery img-thumbnail img-fluid" src="<%= gallery[g].url %>" alt="logo-<%= gallery[g].publicId %>">
+                    </a>
+                  <% } %>
+                  </div>
+                </td>
+                <td><%= Number(price).toLocaleString('en') %> บาท</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+    <hr>
+    <div class="map-embed">
+      <h3>แผนที่ร้านอาหาร <small><a href="https://www.google.com/maps?q=<%= restaurant.locationInfo.latitude %>,<%= restaurant.locationInfo.longtitude %>&zoom=18" class="small" target="_blank">แสดงร้านนี้บนแผนที่</a></small></h3>
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script src="/components/jquery/dist/jquery.min.js"></script>
+  <script src="/components/lightbox2/dist/js/lightbox.min.js"></script>
+  <script>
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true
+    })
+
+    function initMap() {
+      const position = {
+        lat: <%= restaurant.locationInfo.latitude %>,
+        lng: <%= restaurant.locationInfo.longtitude %>
+      }
+      const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: position,
+        scrollwheel: false
+      })
+      const marker = new google.maps.Marker({
+        position,
+        map
+      })
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnTh6eQoyJl1hnIAHGpe_KjfsYiYSJkv0&callback=initMap">
+  </script>
+</body>
+
+</html>
