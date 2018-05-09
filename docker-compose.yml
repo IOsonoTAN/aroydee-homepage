@@ -6,7 +6,6 @@ services:
       context: .
       args:
         NODE_ENV: "production"
-        PORT: 3000
     container_name: aroydee-homepage
     env_file: .env
     ports:
