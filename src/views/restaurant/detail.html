@@ -66,7 +66,7 @@
     <div class="gallery">
       <div class="gallery mt-2">
         <% for (let g=0; g<restaurant.gallery.length; g++) { %>
-          <a href="<%= restaurant.gallery[g].url %>" data-lightbox="menu-<%= restaurant._id %>" data-title="<%= restaurant.title %>" target="_blank">
+          <a href="<%= restaurant.gallery[g].url %>" data-lightbox="menu-<%= restaurant._id %>" data-title="<%= restaurant.title.th %>" target="_blank">
             <img class="img-gallery img-thumbnail img-fluid" src="<%= restaurant.gallery[g].url %>" alt="logo-<%= restaurant.gallery[g].publicId %>">
           </a>
         <% } %>
