@@ -17,6 +17,9 @@
     img#logo {
       max-height: 160px;
       margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
     }
     #map {
       height: 600px;
@@ -38,6 +41,9 @@
       #map {
         height: 300px;
       }
+      .xs-text-center {
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -45,18 +51,18 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-3">
+      <div class="col-12 col-sm-3">
         <% if (restaurant.pictures && restaurant.pictures.logo && restaurant.pictures.logo.url) { %>
           <img id="logo" class="img-thumbnail img-fluid" src=<%= restaurant.pictures.logo.url %> alt="logo-<%= restaurant.pictures.logo.publicId %>">
         <% } %>
       </div>
-      <div class="col-9">
-        <h1 class="title">
+      <div class="col-12 col-sm-9">
+        <h1 class="title xs-text-center">
           <%= restaurant.title.th %>
         </h1>
         <% if (restaurant.description && restaurant.description) { %>
           <div class="col-xs-12">
-            <p class="subtitle">
+            <p class="subtitle xs-text-center">
               <%= restaurant.description.th %>
             </p>
           </div>
